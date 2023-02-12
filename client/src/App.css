@@ -17,19 +17,13 @@
   .app__wrapper {
     display: flex;
     flex: 1;
-    /* height: 800px; */
     height: 100%;
-    /* border-radius: 16px; */
-    /* box-shadow: rgba(0, 0, 0, 0.33) 0px 1px 4px 0px; */
   }
   
   .channel-sidebar {
     width: 73px;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
       var(--primary-color);
-    /* box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25); */
-    /* border-top-left-radius: 16px; */
-    /* border-bottom-left-radius: 16px; */
   }
   
   .channel-sidebar-icon {
@@ -212,3 +206,35 @@
     justify-content: center;
   }
   
+  .auth-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+  }
+
+  .auth-fields {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background: #2a98ed;
+  }
+
+   .auth-fields-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    box-shadow: 0px 1px 5px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    transition: 0.8s ease;
+    background: #fff;
+  }
+  
+   .auth-container-fields-content p {
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #05245a;
+    font-weight: 900;
+  }
