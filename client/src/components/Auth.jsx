@@ -6,6 +6,9 @@ import signUpBG from '../assets/signupbg.png';
 const Auth = () => {
     const [signUp, setSignUp] = useState(true);
     const handleChange = () => {};
+    const switchForm = () => {
+        setSignUp((prevSignUp) => !prevSignUp);
+    }
 
     return(
         <div className="auth-container">
@@ -14,7 +17,7 @@ const Auth = () => {
                     <p>{signUp ? 'Sign Up' : 'Login'}</p>
                     <form onSubmit={() => {}}>
                         {signUp && (
-                            <div className="auth-container-fields-content">
+                            <div className="auth-fields-input">
                                 <label htmlFor='fullName'>Full Name</label>
                                 <input
                                     name="fullName"
@@ -25,55 +28,59 @@ const Auth = () => {
                                 />
                             </div>
                         )}
-                        {signUp && (
-                            <div className="auth-container-fields-content">
+                            <div className="auth-fields-input">
                                 <label htmlFor='username'>Username</label>
                                 <input
-                                    name="fullName"
+                                    name="username"
                                     type="text"
-                                    placeholder="Full Name"
+                                    placeholder="Username"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                        )}
                         {signUp && (
-                            <div className="auth-container-fields-content">
+                            <div className="auth-fields-input">
                                 <label htmlFor='phoneNumber'>Phone Number</label>
                                 <input
-                                    name="fullName"
+                                    name="phoneNumber"
                                     type="text"
-                                    placeholder="Full Name"
+                                    placeholder="Phone Number"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
                         )}
-                        {signUp && (
-                            <div className="auth-container-fields-content">
+                            <div className="auth-fields-input">
                                 <label htmlFor='password'>Password</label>
                                 <input
-                                    name="fullName"
+                                    name="password"
                                     type="password"
-                                    placeholder="Full Name"
+                                    placeholder="Password"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                        )}
                         {signUp && (
-                            <div className="auth-container-fields-content">
+                            <div className="auth-fields-input">
                                 <label htmlFor='password'>Confirm Password</label>
                                 <input
-                                    name="fullName"
+                                    name="confirmPassword"
                                     type="password"
-                                    placeholder="Full Name"
+                                    placeholder="Confirm Password"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
                         )}
                     </form>
+                    <div className="auth-account">
+                        <p>   
+                            {signUp ? "Already have an account?" : "Don't have an account?"}
+                            <span onClick={switchForm}>
+                                {signUp ? "Sign In Instead" : "Create Account"}
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div> 
