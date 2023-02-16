@@ -4,7 +4,8 @@ import axios from 'axios';
 import signUpBG from '../assets/signupbg.png';
 
 const initialState = {
-    fullName: '',
+    firstName: '',
+    lastName: '',
     username: '',
     password: '',
     confirmPassword: '',
@@ -12,22 +13,43 @@ const initialState = {
     email: '',
 }
 
+const cookies = new Cookies();
+
 const Auth = () => {
+    const [form, setForm] = useState(initialState);
     const [signUp, setSignUp] = useState(true);
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value}); 
-    
-        // console.log(form);
     };
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(form);
+        
+        const {firstName, lastName, username, password, email, phoneNumber} = form;
+        const URL = 'http://localhost:5000/auth';
+
+        const {data: {token, userID, hashPassword}} = await axios.post(`${URL}/${signUp ? 'signup' : 'login'}`, {
+            username, password, firstName, lastName, email, phoneNumber,
+        })
+
+        cookies.set('token', token)
+        cookies.set('username', username)
+        cookies.set('firstName', firstName)
+        cookies.set('lastName', lastName)
+        cookies.set('userID', userID)
+
+        if(signUp) {
+            cookies.set('email', email)
+            cookies.set('phoneNumber', phoneNumber)
+            cookies.set('hashPassword', hashPassword)
+        }
+
+        window.location.reload();
     };
     const switchForm = () => {
         setSignUp((prevSignUp) => !prevSignUp);
     }
-    const [form, setForm] = useState();
-
+    
     return(
         <div className="auth-container">
             <div className="auth-fields">
@@ -36,11 +58,23 @@ const Auth = () => {
                     <form onSubmit={handleSubmit}>
                         {signUp && (
                             <div className="auth-fields-input">
-                                <label htmlFor='fullName'>Full Name</label>
+                                <label htmlFor='firstName'>First Name</label>
                                 <input
-                                    name="fullName"
+                                    name="firstName"
                                     type="text"
-                                    placeholder="Full Name"
+                                    placeholder="First Name"
+                                    onChange={handleChange}
+                                    required 
+                                />
+                            </div>
+                        )}
+                        {signUp && (
+                            <div className="auth-fields-input">
+                                <label htmlFor='lastName'>Last Name</label>
+                                <input
+                                    name="lastName"
+                                    type="text"
+                                    placeholder="Last Name"
                                     onChange={handleChange}
                                     required 
                                 />
@@ -92,7 +126,7 @@ const Auth = () => {
                             </div>
                         {signUp && (
                             <div className="auth-fields-input">
-                                <label htmlFor='password'>Confirm Password</label>
+                                <label htmlFor='confirmPassword'>Confirm Password</label>
                                 <input
                                     name="confirmPassword"
                                     type="password"
