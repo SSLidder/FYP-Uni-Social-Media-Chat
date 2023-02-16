@@ -49,8 +49,7 @@ const Auth = () => {
     const switchForm = () => {
         setSignUp((prevSignUp) => !prevSignUp);
     }
-
-
+    
     return(
         <div className="auth-container">
             <div className="auth-fields">
