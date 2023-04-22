@@ -11,7 +11,7 @@ import { StreamChat } from 'stream-chat';
 
 const cookies = new Cookies();
 
-const apiKey = 'mmcv36frap4d';
+const apiKey = 'mmcv36frap4d ';
 const client = StreamChat.getInstance(apiKey);
 
 const initialState = {
@@ -24,8 +24,7 @@ const initialState = {
     email: '',
 }
 
-
-const Auth = () => {
+const SignUp = () => {
     const [form, setForm] = useState(initialState);
     const [signUp, setSignUp] = useState(true);
     const handleChange = (e) => {
@@ -38,7 +37,7 @@ const Auth = () => {
         const { username, password, email, phoneNumber} = form;
         const URL = 'http://localhost:5000/auth';
 
-        const {data: {token, userID, hashPassword, firstName, lastName}} = await axios.post(`${URL}/${signUp ? 'signup' : 'login'}`, {
+        const {data: {token, userID, hashPassword, firstName, lastName}} = await axios.post(`${URL}/${signUp}`, {
             username, password, firstName: form.firstName, lastName: form.lastName, email, phoneNumber,
         })
 
@@ -47,23 +46,17 @@ const Auth = () => {
         cookies.set('firstName', firstName)
         cookies.set('lastName', lastName)
         cookies.set('userID', userID)
-
-        if(signUp) {
-            cookies.set('email', email)
-            cookies.set('phoneNumber', phoneNumber)
-            cookies.set('hashPassword', hashPassword)
-        }
+        cookies.set('email', email)
+        cookies.set('phoneNumber', phoneNumber)
+        cookies.set('hashPassword', hashPassword)
 
         window.location.reload();
         // return(
-        //     <Route path="/auth" element={<Auth />} />
+        //     <Route path="/auth" element={<SignUp />} />
         // )
 
     };
-    const switchForm = () => {
-        setSignUp((prevSignUp) => !prevSignUp);
-    }
-    
+
     return(
         <div className="homepage-navbar">
                 {/* <ul>
@@ -116,7 +109,6 @@ const Auth = () => {
                             </div>
                         )}
                         <div class="grid--50-50"></div>
-                        {signUp && (
                             <div class="formbg">
                                 <div class="field padding-bottom--24"></div>
                                 <label htmlFor='lastName'>Last Name</label>
@@ -128,7 +120,6 @@ const Auth = () => {
                                     required 
                                 />
                             </div>
-                                )}
                             <div class="formbg">
                             <div class="field padding-bottom--24"></div>
                                 <label htmlFor='username'>Username</label>
@@ -140,14 +131,11 @@ const Auth = () => {
                                     required 
                                 />
                             </div>
-                        {signUp && (
                             <div class="formbg">
                                 <div class="field padding-bottom--24"></div>
                                  <label for="email">Enter your univeristy email</label>
                                 <input type="email" name="email" pattern=".+.ac.uk" required></input>
                             </div>
-                        )}
-                        {signUp && (
                             <div class="formbg">
                                 <div class="field padding-bottom--24"></div>
                                 <label htmlFor='phoneNumber'>Phone Number</label>
@@ -159,7 +147,6 @@ const Auth = () => {
                                     required 
                                 />
                             </div>
-                        )}
                             <div class="formbg">
                             <div class="field padding-bottom--24"></div>
                                 <label htmlFor='password'>Password</label>
@@ -171,7 +158,6 @@ const Auth = () => {
                                     required 
                                 />
                             </div>
-                        {signUp && (
                             <div class="formbg">
                                 <div class="field padding-bottom--24"></div>
                                 <label htmlFor='confirmPassword'>Confirm Password</label>
@@ -183,26 +169,25 @@ const Auth = () => {
                                     required 
                                 />
                             </div>
-                        )}
                         <div class="formbg">
                         <div class="field padding-bottom--24"></div>
-                            <button>{signUp ? "Sign Up" : "Sign In"}</button>
+                            <button>{"Sign Up"}</button>
                         </div>
                     </form>
-                    <div class="formbg">
+
                     <div class="field padding-bottom--24"></div>
-                        <p>   
+                        {/* <p>   
                             {signUp ? "Already have an account?" : "Don't have an account?"}
                             <span onClick={switchForm}>
                                 {signUp ? "Sign In Instead" : "Create Account"}
                             </span>
-                        </p>
+                        </p> */}
                         </div>
                     </div>
-                </div>
+
             // </div>
     )
     
 }
 
-export default Auth;
+export default SignUp;
