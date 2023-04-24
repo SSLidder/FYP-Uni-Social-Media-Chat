@@ -12,3 +12,5 @@ export { default as Homepage } from './Homepage';
 export { default as UserList } from './UserList';
 export { default as AuthHome } from './AuthHome';
 export { default as SignUp } from './SignUp';
+export { default as Dashboard } from './Dashboard';
+export { default as Login } from './Login';

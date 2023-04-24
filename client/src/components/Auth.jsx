@@ -55,10 +55,6 @@ const Auth = () => {
         }
 
         window.location.reload();
-        // return(
-        //     <Route path="/auth" element={<Auth />} />
-        // )
-
     };
     const switchForm = () => {
         setSignUp((prevSignUp) => !prevSignUp);

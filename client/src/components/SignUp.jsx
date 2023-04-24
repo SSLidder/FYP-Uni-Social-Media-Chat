@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 import axios from 'axios';
 import chatimg2 from '../assets/chatimg2.jpeg';
-import { Route } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { Test } from "./Test";
 import { ChannelListContainer, ChannelContainer, Homepage, AuthHome } from './';
 import { Chat } from 'stream-chat-react';
@@ -31,13 +31,24 @@ const SignUp = () => {
         setForm({...form, [e.target.name]: e.target.value}); 
     };
 
+    const cookies = new Cookies();
+    const authenticationToken = cookies.get("token");
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (authenticationToken) {
+            navigate("/dashboard");
+        }
+    }, [])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
         const { username, password, email, phoneNumber} = form;
         const URL = 'http://localhost:5000/auth';
 
-        const {data: {token, userID, hashPassword, firstName, lastName}} = await axios.post(`${URL}/${signUp}`, {
+        const {data: {token, userID, hashPassword, firstName, lastName}} = await axios.post(`${URL}/signup`, {
             username, password, firstName: form.firstName, lastName: form.lastName, email, phoneNumber,
         })
 
@@ -50,7 +61,9 @@ const SignUp = () => {
         cookies.set('phoneNumber', phoneNumber)
         cookies.set('hashPassword', hashPassword)
 
-        window.location.reload();
+        navigate("/dashboard");
+
+        // window.location.reload();
         // return(
         //     <Route path="/auth" element={<SignUp />} />
         // )
@@ -87,95 +100,82 @@ const SignUp = () => {
             <div className="formbg-outer">
                 <div className="formbg" /> */}
                     {/* <p>{signUp ? 'Sign Up' : 'Login'}</p> */}
-                    <span class="padding-bottom--15">Sign in to your account</span>
+                    {/* <span class="padding-bottom--15">Sign in to your account</span> */}
 
                     <form onSubmit={handleSubmit} class="stripe-login">
-                        {signUp && (
-                            <div class="formbg-outer">
-                            <div class="formbg">
-                              <div class="formbg-inner padding-horizontal--48">
-                              <div class="field padding-bottom--24">
+                            <h1 className="form">Sign Up</h1>
+                            <div className="textFields">
                                 <label htmlFor='firstName'>First Name</label>
+                                <span></span>
                                 <input
                                     name="firstName"
                                     type="text"
-                                    placeholder="First Name"
                                     onChange={handleChange}
                                     required 
                                 />
-                                </div>
                             </div>
-                            </div>
-                            </div>
-                        )}
-                        <div class="grid--50-50"></div>
-                            <div class="formbg">
-                                <div class="field padding-bottom--24"></div>
+                            <div className="textFields">
                                 <label htmlFor='lastName'>Last Name</label>
+                                <span></span>
                                 <input
                                     name="lastName"
                                     type="text"
-                                    placeholder="Last Name"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                            <div class="formbg">
-                            <div class="field padding-bottom--24"></div>
+                            <div className="textFields">
                                 <label htmlFor='username'>Username</label>
+                                <span></span>
                                 <input
                                     name="username"
                                     type="text"
-                                    placeholder="Username"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                            <div class="formbg">
-                                <div class="field padding-bottom--24"></div>
-                                 <label for="email">Enter your univeristy email</label>
+                            <div className="textFields">
+                                <label for="email">Enter your univeristy email</label>
+                                <span></span>
                                 <input type="email" name="email" pattern=".+.ac.uk" required></input>
                             </div>
-                            <div class="formbg">
-                                <div class="field padding-bottom--24"></div>
+                            <div className="textFields">
                                 <label htmlFor='phoneNumber'>Phone Number</label>
+                                <span></span>
                                 <input
                                     name="phoneNumber"
                                     type="number"
-                                    placeholder="Phone Number"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                            <div class="formbg">
-                            <div class="field padding-bottom--24"></div>
+                            <div className="textFields">
                                 <label htmlFor='password'>Password</label>
+                                <span></span>
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder="Password"
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                            <div class="formbg">
-                                <div class="field padding-bottom--24"></div>
+                            <div className="textFields">
                                 <label htmlFor='confirmPassword'>Confirm Password</label>
+                                <span></span>
                                 <input
                                     name="confirmPassword"
                                     type="password"
-                                    placeholder="Confirm Password"
+
                                     onChange={handleChange}
                                     required 
                                 />
                             </div>
-                        <div class="formbg">
-                        <div class="field padding-bottom--24"></div>
-                            <button>{"Sign Up"}</button>
-                        </div>
+                            <button className="submitButton">{"Sign Up"}</button>
+                            <div className="loginSwitch">
+                                Already have an account? Sign in
+                            </div>
                     </form>
 
-                    <div class="field padding-bottom--24"></div>
                         {/* <p>   
                             {signUp ? "Already have an account?" : "Don't have an account?"}
                             <span onClick={switchForm}>
