@@ -28,7 +28,7 @@ const Homepage = () => {
                 <p className="HPTitle"> Welcome to the University Social Media Platform that meets all your needs!</p>
                 <p className="HPText">
                     
-                    This is the number 1 platform for you to speak with other students and get your questions answered!<br></br>
+                    This is the top platform for you to speak with other students and get your questions answered!<br></br>
                     Also, you can request help from other students on a space where you can feel more comfortable.
                 </p>
             
