@@ -172,16 +172,9 @@ const SignUp = () => {
                             </div>
                             <button className="submitButton">{"Sign Up"}</button>
                             <div className="loginSwitch">
-                                Already have an account? Sign in
+                                <button onClick={() => navigate("/login")}>Already have an account? Login </button>
                             </div>
                     </form>
-
-                        {/* <p>   
-                            {signUp ? "Already have an account?" : "Don't have an account?"}
-                            <span onClick={switchForm}>
-                                {signUp ? "Sign In Instead" : "Create Account"}
-                            </span>
-                        </p> */}
                         </div>
                     </div>
 
